@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30523.141
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GA", "GA\GA.csproj", "{43A40107-9929-4515-A0B2-CF9DB23E28DC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GATests", "GATests\GATests.csproj", "{D19B927D-6201-49AC-B27A-B8EA4EE20DA8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{43A40107-9929-4515-A0B2-CF9DB23E28DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{43A40107-9929-4515-A0B2-CF9DB23E28DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{43A40107-9929-4515-A0B2-CF9DB23E28DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{43A40107-9929-4515-A0B2-CF9DB23E28DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D19B927D-6201-49AC-B27A-B8EA4EE20DA8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D19B927D-6201-49AC-B27A-B8EA4EE20DA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D19B927D-6201-49AC-B27A-B8EA4EE20DA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D19B927D-6201-49AC-B27A-B8EA4EE20DA8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0959C03C-7693-4831-AAC5-595C4228FDE5}
+	EndGlobalSection
+EndGlobal
