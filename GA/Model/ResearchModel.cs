@@ -16,14 +16,18 @@ namespace GA1
         public static Dictionary<double, Chromosome> FitPop(IEnumerable<Chromosome> listOfChromosomes)
             => listOfChromosomes.ToDictionary(chromosome => chromosome.Fitness());
 
-        public static Dictionary<double, Chromosome> FixedFitPop(IEnumerable<Chromosome> listOfChromosomes)
+        public static Dictionary<double, Chromosome> FixedFitPop(IEnumerable<Chromosome> listOfChromosomes, out double lowestKey)
         {
             var fitPop = FitPop(listOfChromosomes);
-            var lowestKey = fitPop.Keys.Min();
+            lowestKey = fitPop.Keys.Min();
+            var tempLowestKey = lowestKey;
             var newDic = fitPop.
-                ToDictionary(chromosome => chromosome.Key + Math.Abs(lowestKey),
+                ToDictionary(chromosome => chromosome.Key + Math.Abs(tempLowestKey),
                     chromosome => chromosome.Value);
             return newDic;
         }
+
+        public static Dictionary<double, Chromosome> FixedFitPop(IEnumerable<Chromosome> listOfChromosomes)
+            => FixedFitPop(listOfChromosomes, out _);
     }
 }
