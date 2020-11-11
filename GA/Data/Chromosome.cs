@@ -4,6 +4,16 @@ namespace GA1
 {
     public class Chromosome
     {
+        public Chromosome()
+        {
+            
+        }
+
+        public static Chromosome NewRandomChromosome()
+        => new Chromosome
+        {
+            Gene = new Random().Next(ChromosomeDefinition.PossibleLargestChromosome)
+        };
         private int _gene;
 
         public int Gene
