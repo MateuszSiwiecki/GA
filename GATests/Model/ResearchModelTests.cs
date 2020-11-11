@@ -9,9 +9,16 @@ namespace GA1.Tests
     public class ResearchModelTests
     {
         [Fact()]
-        public void NewRandomPopulationTest()
+        public void NewRandomPopulationTest_RandomChromosomes_ShouldPassWithErrorMargin()
         {
-            Assert.True(false, "This test needs an implementation");
+            var listOfPop = ResearchModel.NewRandomPopulation(10);
+            var errorMargin = 2;
+            var errors = 0;
+            for (int i = 0; i < listOfPop.Count - 1; i++)
+            {
+                if(listOfPop[i].Gene == listOfPop[i+1].Gene) errors++;
+            }
+            Assert.True(errors < errorMargin);
         }
     }
 }
