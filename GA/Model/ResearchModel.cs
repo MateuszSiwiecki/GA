@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 
 namespace GA1
 {
@@ -13,21 +14,22 @@ namespace GA1
             return list;
         }
 
-        public static Dictionary<double, Chromosome> FitPop(IEnumerable<Chromosome> listOfChromosomes)
-            => listOfChromosomes.ToDictionary(chromosome => chromosome.Fitness());
-
-        public static Dictionary<double, Chromosome> FixedFitPop(IEnumerable<Chromosome> listOfChromosomes, out double lowestKey)
+        public static List<Chromosome> FitPop(List<Chromosome> listOfChromosomes)
         {
-            var fitPop = FitPop(listOfChromosomes);
-            lowestKey = fitPop.Keys.Min();
-            var tempLowestKey = lowestKey;
-            var newDic = fitPop.
-                ToDictionary(chromosome => chromosome.Key + Math.Abs(tempLowestKey),
-                    chromosome => chromosome.Value);
-            return newDic;
+            foreach (var chromosome in listOfChromosomes) chromosome.SetFitness();
+            return listOfChromosomes;
         }
 
-        public static Dictionary<double, Chromosome> FixedFitPop(IEnumerable<Chromosome> listOfChromosomes)
+        public static List<Chromosome> FixedFitPop(List<Chromosome> listOfChromosomes, out double lowestKey)
+        {
+            listOfChromosomes = FitPop(listOfChromosomes);
+            lowestKey = Math.Abs(listOfChromosomes.Min(x => x.Fitness));
+            var tempLowestKey = lowestKey;
+            foreach (var chromosome in listOfChromosomes) chromosome.Fitness += tempLowestKey;
+            return listOfChromosomes;
+        }
+
+        public static List<Chromosome> FixedFitPop(List<Chromosome> listOfChromosomes)
             => FixedFitPop(listOfChromosomes, out _);
     }
 }

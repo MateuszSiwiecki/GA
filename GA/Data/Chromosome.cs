@@ -28,8 +28,11 @@ namespace GA1
             set => _gene = value;
         }
 
+        public double Fitness;
+
         public double GeneInDecimal() => ResearchDefinitions.GetElementOfNPosition(Gene);
         public string GeneInBinary() => ChromosomeDefinition.BinaryGeneFix(Convert.ToString(Gene, 2));
-        public double Fitness() => ResearchDefinitions.FitFunction(GeneInDecimal());
+        public double CalculateFitness() => ResearchDefinitions.FitFunction(GeneInDecimal());
+        public void SetFitness() => Fitness = CalculateFitness();
     }
 }
