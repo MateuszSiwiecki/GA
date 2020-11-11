@@ -6,7 +6,7 @@ namespace GA1
     {
         public static void Main(string[] args)
         {
-            throw new NotImplementedException();
+            var startPop = ResearchModel.NewRandomPopulation(ResearchDefinitions.StartPop);
         }
     }
 }

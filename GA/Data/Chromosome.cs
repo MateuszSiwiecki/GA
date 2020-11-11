@@ -30,5 +30,6 @@ namespace GA1
 
         public double GeneInDecimal() => ResearchDefinitions.GetElementOfNPosition(Gene);
         public string GeneInBinary() => ChromosomeDefinition.BinaryGeneFix(Convert.ToString(Gene, 2));
-}
+        public double Fitness() => ResearchDefinitions.FitFunction(GeneInDecimal());
+    }
 }
