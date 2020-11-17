@@ -36,11 +36,12 @@ namespace GA1.Tests
             var listOfPop = ResearchModel.NewRandomPopulation(10);
             var list = ResearchModel.FixedFitPop(listOfPop, out var lowestKey);
             _testOutputHelper.WriteLine($"Lowest key {lowestKey}");
+            Assert.True(lowestKey > 0);
             foreach (var chromosome in list)
             {
+                Assert.True(chromosome.Fitness >= 0);
                 _testOutputHelper.WriteLine($"{chromosome.Fitness}");
             }
-            Assert.Contains(list, pair => pair.Fitness >= 0);
         }
     }
 }

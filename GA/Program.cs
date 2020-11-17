@@ -7,6 +7,8 @@ namespace GA1
         public static void Main(string[] args)
         {
             var startPop = ResearchModel.NewRandomPopulation(ResearchDefinitions.StartPop);
+            ResearchModel.FixedFitPop(startPop);
+            
         }
     }
 }

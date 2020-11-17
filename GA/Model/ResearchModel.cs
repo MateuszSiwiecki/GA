@@ -14,7 +14,7 @@ namespace GA1
             return list;
         }
 
-        public static List<Chromosome> FitPop(List<Chromosome> listOfChromosomes)
+        private static List<Chromosome> FitPop(List<Chromosome> listOfChromosomes)
         {
             foreach (var chromosome in listOfChromosomes) chromosome.SetFitness();
             return listOfChromosomes;
@@ -31,5 +31,18 @@ namespace GA1
 
         public static List<Chromosome> FixedFitPop(List<Chromosome> listOfChromosomes)
             => FixedFitPop(listOfChromosomes, out _);
+
+        public static List<Chromosome> RouletteWheel(List<Chromosome> listOfChromosomes)
+        {
+            var sum = listOfChromosomes.Sum(chromosome => chromosome.Fitness);
+            var probabilityTable = listOfChromosomes.Select(x => x.Fitness * 100 / sum);
+            var preselectionChromosomes = new List<Chromosome>();
+            for (int i = 0; i < listOfChromosomes.Count; i++)
+            {
+                var random = Utils.RandomNumberDigits(3);
+            }
+
+            return preselectionChromosomes;
+        }
     }
 }
