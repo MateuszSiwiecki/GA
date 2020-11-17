@@ -2,11 +2,17 @@
 
 namespace GA1
 {
-    public class Chromosome
+    public class Chromosome : IComparable<Chromosome>
     {
         public Chromosome()
         {
             
+        }
+
+        public Chromosome(Chromosome oldChromosome)
+        {
+            this._gene = oldChromosome._gene;
+            this.Fitness = oldChromosome.Fitness;
         }
 
         public static Chromosome NewRandomChromosome()
@@ -34,5 +40,6 @@ namespace GA1
         public string GeneInBinary() => ChromosomeDefinition.BinaryGeneFix(Convert.ToString(Gene, 2));
         public double CalculateFitness() => ResearchDefinitions.FitFunction(GeneInDecimal());
         public void SetFitness() => Fitness = CalculateFitness();
+        public int CompareTo(Chromosome other) => _gene - other._gene;
     }
 }
