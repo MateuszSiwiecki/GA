@@ -2,6 +2,7 @@
 using GA1;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Xunit.Abstractions;
 
@@ -9,13 +10,7 @@ namespace GA1.Tests
 {
     public class ResearchModelTests
     {
-        private readonly ITestOutputHelper _testOutputHelper;
-
-        public ResearchModelTests(ITestOutputHelper testOutputHelper)
-        {
-            _testOutputHelper = testOutputHelper;
-        }
-
+        private int numberOfPopsToTest = 1000;
         [Fact()]
         public void NewRandomPopulationTest_RandomChromosomes_ShouldPassWithErrorMargin()
         {
@@ -42,6 +37,28 @@ namespace GA1.Tests
                 Assert.True(chromosome.Fitness >= 0);
                 _testOutputHelper.WriteLine($"{chromosome.Fitness}");
             }
+        }
+
+        [Fact()]
+        public void RouletteWheelTest_NormalPopWithFixedFitness_ShouldPass()
+        {
+            var testPop = ResearchModel.FixedFitPop(
+                ResearchModel.NewRandomPopulation(numberOfPopsToTest));
+            var outputTestPop = ResearchModel.RouletteWheel(testPop);
+
+            var fitnessSumTestPop = testPop.Sum(x => x.Fitness);
+            var fitnessSumOutputTestPop = outputTestPop.Sum(x => x.Fitness);
+
+            Assert.True(fitnessSumTestPop < fitnessSumOutputTestPop);
+        }
+
+
+
+        private readonly ITestOutputHelper _testOutputHelper;
+
+        public ResearchModelTests(ITestOutputHelper testOutputHelper)
+        {
+            _testOutputHelper = testOutputHelper;
         }
     }
 }
