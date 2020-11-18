@@ -35,6 +35,7 @@ namespace GALib
         }
 
         public double Fitness;
+        public double AbsFitness;
 
         public double GeneInDecimal() => ResearchDefinitions.GetElementOfNPosition(Gene);
         public string GeneInBinary() => ChromosomeDefinition.BinaryGeneFix(Convert.ToString(Gene, 2));
@@ -45,7 +46,7 @@ namespace GALib
             return this;
         }
         public double CalculateFitness() => ResearchDefinitions.FitFunction(GeneInDecimal());
-        public void SetFitness() => Fitness = CalculateFitness();
+        public void SetFitness() => Fitness = AbsFitness = CalculateFitness();
         public int CompareTo(Chromosome other) => _gene - other._gene;
     }
 }

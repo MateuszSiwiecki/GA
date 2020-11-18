@@ -24,7 +24,7 @@ namespace GALib.PostSelection
             var rnd = new Random();
             for (int i = 0; i < aBinaryGene.Length; i++)
             {
-                if (rnd.Next(1) == 1)
+                if (rnd.Next(2) == 1)
                 {
                     sbA.Append(aBinaryGene[i]);
                     sbB.Append(bBinaryGene[i]);

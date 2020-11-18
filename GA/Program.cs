@@ -1,5 +1,6 @@
 ﻿using System;
 using GALib;
+using GALib.PostSelection;
 
 namespace GA1
 {
@@ -7,23 +8,21 @@ namespace GA1
     {
         public static void Main(string[] args)
         {
-            ResearchDefinitions.SetResearch(-7, -7, 10);
-            var startPop = ResearchModel.NewRandomPopulation(ResearchDefinitions.StartPopSize);
-            startPop.Sort();
-            ResearchModel.FixedFitPop(startPop);
-            Console.WriteLine("Start pop:");
-            foreach (var chromosome in startPop)
-            {
-                Console.WriteLine($"{chromosome.Gene} | {chromosome.GeneInBinary()} | {chromosome.GeneInDecimal()} | {chromosome.Fitness}");
-            }
-            var nextPop = new RouletteWheel().DrawChromosomes(startPop);
-            nextPop.Sort();
+            ResearchDefinitions.SetResearch(-7, 7, 10);
 
-            Console.WriteLine("Next pop:");
-            foreach (var chromosome in nextPop)
-            {
-                Console.WriteLine($"{chromosome.Gene} | {chromosome.GeneInBinary()} | {chromosome.GeneInDecimal()} | {chromosome.Fitness}");
-            }
+            var startPop = ResearchModel.FixedFitPop(
+                ResearchModel.NewRandomPopulation(
+                ResearchDefinitions.StartPopSize));
+            Console.WriteLine("\nStart pop:\n");
+            Writers.WriteSortedByFitness(startPop);
+
+            var preselectedPop = new RouletteWheel().DrawChromosomes(startPop);
+            Console.WriteLine("\nPreselected:\n");
+            Writers.WriteSortedByFitness(preselectedPop);
+
+            var nextGenPop = ResearchModel.FixedFitPop(PostSelection.CreateNewPopulation(preselectedPop));
+            Console.WriteLine("\nNextGenPop:\n");
+            Writers.WriteSortedByFitness(nextGenPop);
 
         }
     }
