@@ -38,6 +38,12 @@ namespace GALib
 
         public double GeneInDecimal() => ResearchDefinitions.GetElementOfNPosition(Gene);
         public string GeneInBinary() => ChromosomeDefinition.BinaryGeneFix(Convert.ToString(Gene, 2));
+
+        public Chromosome SetGene(string geneInBinary)
+        {
+            _gene = Convert.ToInt32(geneInBinary, 2);
+            return this;
+        }
         public double CalculateFitness() => ResearchDefinitions.FitFunction(GeneInDecimal());
         public void SetFitness() => Fitness = CalculateFitness();
         public int CompareTo(Chromosome other) => _gene - other._gene;

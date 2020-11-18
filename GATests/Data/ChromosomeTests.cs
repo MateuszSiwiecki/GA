@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Text;
 using Xunit.Abstractions;
 
-namespace GA1.Tests
+namespace GALib.Tests
 {
     public class ChromosomeTests
     {
@@ -14,6 +14,18 @@ namespace GA1.Tests
         public ChromosomeTests(ITestOutputHelper testOutputHelper)
         {
             _testOutputHelper = testOutputHelper;
+        }
+
+        [Theory()]
+        [InlineData("001", 1)]
+        [InlineData("101", 5)]
+        [InlineData("1111", 15)]
+        [InlineData("1010", 10)]
+        public void SetGeneTest(string binary, int expectedGene)
+        {
+            var chromosome = new Chromosome();
+            chromosome.SetGene(binary);
+            Assert.True(chromosome.Gene == expectedGene);
         }
 
         [Fact()]
