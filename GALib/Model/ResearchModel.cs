@@ -32,31 +32,5 @@ namespace GALib
         public static List<Chromosome> FixedFitPop(List<Chromosome> listOfChromosomes)
             => FixedFitPop(listOfChromosomes, out _);
 
-        public static List<Chromosome> RouletteWheel(List<Chromosome> listOfChromosomes)
-        {
-            var sum = listOfChromosomes.Sum(chromosome => chromosome.Fitness);
-            var probabilityTable = listOfChromosomes.Select(x => x.Fitness * 100 / sum).ToList();
-            var preselectionChromosomes = new List<Chromosome>();
-            for (int i = 0; i < listOfChromosomes.Count; i++)
-            {
-                var random = Utils.RandomNumberDigits(3);
-                var index = -1;
-                double lowerProb = 0, upperProb = 0;
-                for (int j = 0; j < probabilityTable.Count; j++)
-                {
-                    upperProb += probabilityTable[j];
-                    if (!(lowerProb < random) || !(random < upperProb))
-                    {
-                        lowerProb = upperProb;
-                        continue;
-                    }
-                    index = j;
-                    break;
-                }
-                preselectionChromosomes.Add(new Chromosome(listOfChromosomes[index]));
-            }
-
-            return preselectionChromosomes;
-        }
     }
 }

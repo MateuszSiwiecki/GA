@@ -16,7 +16,7 @@ namespace GA1
             {
                 Console.WriteLine($"{chromosome.Gene} | {chromosome.GeneInBinary()} | {chromosome.GeneInDecimal()} | {chromosome.Fitness}");
             }
-            var nextPop = ResearchModel.RouletteWheel(startPop);
+            var nextPop = Selection.RouletteWheel(startPop);
             nextPop.Sort();
 
             Console.WriteLine("Next pop:");
