@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace GA1
+namespace GALib
 {
     public class Chromosome : IComparable<Chromosome>
     {

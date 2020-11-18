@@ -1,5 +1,5 @@
 ﻿using Xunit;
-using GA1;
+using GALib;
 using System;
 using System.Collections.Generic;
 using System.Text;

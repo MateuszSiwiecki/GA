@@ -1,5 +1,5 @@
 ﻿using Xunit;
-using GA1;
+using GALib;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -19,7 +19,8 @@ namespace GA1.Tests
         [Fact()]
         public void CalculateFitnessTest_CheckFitnessForRandomGenes_ShouldPass()
         {
-            var chromosomes = ResearchModel.NewRandomPopulation(10);
+            ResearchDefinitions.SetResearch(-7, 7, 10);
+            var chromosomes = ResearchModel.NewRandomPopulation(ResearchDefinitions.StartPopSize);
             foreach (var chromosome in chromosomes)
             {
                 chromosome.SetFitness();

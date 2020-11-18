@@ -1,4 +1,5 @@
 ﻿using System;
+using GALib;
 
 namespace GA1
 {
@@ -6,7 +7,8 @@ namespace GA1
     {
         public static void Main(string[] args)
         {
-            var startPop = ResearchModel.NewRandomPopulation(ResearchDefinitions.StartPop);
+            ResearchDefinitions.SetResearch(-7, -7, 10);
+            var startPop = ResearchModel.NewRandomPopulation(ResearchDefinitions.StartPopSize);
             startPop.Sort();
             ResearchModel.FixedFitPop(startPop);
             Console.WriteLine("Start pop:");

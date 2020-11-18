@@ -1,12 +1,18 @@
 ﻿using System;
 
-namespace GA1
+namespace GALib
 {
     public static class ResearchDefinitions
     {
-        public static double LowerBound = -7;
-        public static double UpperBound = 7;
-        public static int StartPop = 10;
+        public static void SetResearch(double lowerBound, double upperBound, int startPop)
+        {
+            LowerBound = lowerBound;
+            UpperBound = upperBound;
+            StartPopSize = startPop;
+        }
+        public static double LowerBound { get; private set; }
+        public static double UpperBound { get; private set; }
+        public static int StartPopSize { get; private set; }
         public static double FunctionUnderStudy(double x)
             => (0.2 * Math.Pow(x, 3)) + (0.1 * Math.Pow(x, 2)) - (8 * x);
         public static double FitFunction(double x) => -FunctionUnderStudy(x);

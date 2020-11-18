@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 
-namespace GA1
+namespace GALib
 {
     public static class ResearchModel
     {

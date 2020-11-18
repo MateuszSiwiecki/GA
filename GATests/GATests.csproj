@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\GA\GA.csproj" />
+    <ProjectReference Include="..\GALib\GALib.csproj" />
   </ItemGroup>
 
 </Project>

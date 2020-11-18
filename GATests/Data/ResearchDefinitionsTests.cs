@@ -1,5 +1,5 @@
 ﻿using Xunit;
-using GA1;
+using GALib;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -23,6 +23,7 @@ namespace GA1.Tests
         [InlineData(1, 2)]
         public void GetElementOfNPositionTest_CheckIfValueAreDifferent_ShouldPass(int a, int b)
         {
+            ResearchDefinitions.SetResearch(-7, 7, 10);
             var valueFirst = ResearchDefinitions.GetElementOfNPosition(a);
             var valueSecond = ResearchDefinitions.GetElementOfNPosition(b);
             _testOutputHelper.WriteLine($"{valueFirst} : {valueSecond}");

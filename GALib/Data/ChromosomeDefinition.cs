@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 
-namespace GA1
+namespace GALib
 {
     public static class ChromosomeDefinition
     {
