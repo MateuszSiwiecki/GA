@@ -16,7 +16,7 @@ namespace GA1
         {
             foreach (var chromosome in list)
             {
-                Console.WriteLine($"{chromosome.Gene} | {chromosome.GeneInBinary()} | {chromosome.GeneInDecimal()} | {chromosome.Fitness}");
+                Console.WriteLine($"{chromosome.Gene} | {chromosome.GeneInBinary()} | {chromosome.GeneInDecimal()} | {chromosome.Fitness} | {chromosome.AbsFitness}");
             }
             WriteSeparator();
         }

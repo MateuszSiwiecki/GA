@@ -13,6 +13,7 @@ namespace GALib
         {
             this._gene = oldChromosome._gene;
             this.Fitness = oldChromosome.Fitness;
+            this.AbsFitness = oldChromosome.AbsFitness;
         }
 
         public static Chromosome NewRandomChromosome()
