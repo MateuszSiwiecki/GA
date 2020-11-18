@@ -3,20 +3,15 @@ using System.Linq;
 
 namespace GALib
 {
-    public static class Selection
+    public abstract class BasicSelection : ISelection
     {
-        public static List<Chromosome> RouletteWheel(List<Chromosome> listOfChromosomes)
-        {
-            var probabilityTable = CountProbabilityByNonNegativeFitness(listOfChromosomes);
-
-            var preselectionChromosomes = new List<Chromosome>();
-            for (var i = 0; i < listOfChromosomes.Count; i++)
-                preselectionChromosomes.Add(DrawChromosome(listOfChromosomes, probabilityTable));
-
-            return preselectionChromosomes;
-        }
-
-        private static Chromosome DrawChromosome(List<Chromosome> listOfChromosomes, double[] probabilityTable)
+        /// <summary>
+        /// Draw random number from 0 to 100, then compare with probability table.
+        /// </summary>
+        /// <param name="listOfChromosomes"></param>
+        /// <param name="probabilityTable">The probability of individual chromosome</param>
+        /// <returns></returns>
+        protected Chromosome DrawChromosome(List<Chromosome> listOfChromosomes, double[] probabilityTable)
         {
             var random = Utils.RandomNumberDigits(3);
             var index = -1;
@@ -36,10 +31,12 @@ namespace GALib
             return new Chromosome(listOfChromosomes[index]);
         }
 
-        private static double[] CountProbabilityByNonNegativeFitness(List<Chromosome> listOfChromosomes)
+        protected double[] CountProbabilityByNonNegativeFitness(List<Chromosome> listOfChromosomes)
         {
             var sum = listOfChromosomes.Sum(chromosome => chromosome.Fitness);
             return listOfChromosomes.Select(x => x.Fitness * 100 / sum).ToArray();
         }
+
+        public abstract List<Chromosome> DrawChromosomes(List<Chromosome> listOfChromosomes);
     }
 }

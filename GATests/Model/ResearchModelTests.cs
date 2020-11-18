@@ -44,7 +44,7 @@ namespace GA1.Tests
         {
             var testPop = ResearchModel.FixedFitPop(
                 ResearchModel.NewRandomPopulation(numberOfPopsToTest));
-            var outputTestPop = Selection.RouletteWheel(testPop);
+            var outputTestPop = new RouletteWheel().DrawChromosomes(testPop);
 
             var fitnessSumTestPop = testPop.Sum(x => x.Fitness);
             var fitnessSumOutputTestPop = outputTestPop.Sum(x => x.Fitness);
