@@ -5,7 +5,8 @@ namespace GALib
 {
     public static class ChromosomeDefinition
     {
-        public static readonly int GenesCount = 128;
+        public static void SetGenestCount(int count) => GenesCount = count;
+        public static int GenesCount;
         public static int PossibleLargestChromosome => GenesCount - 1;
         public static int ChromosomeLength => (int)Math.Log2(GenesCount);
 

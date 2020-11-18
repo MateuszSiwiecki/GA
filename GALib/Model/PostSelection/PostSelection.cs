@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 
@@ -10,8 +11,12 @@ namespace GALib.PostSelection
         public static List<Chromosome> CreateNewPopulation(List<Chromosome> oldPop)
         {
             var output = new List<Chromosome>();
-            for (var i = 0; i < oldPop.Count; i += 2) output.AddRange(MixChromosomes(oldPop[i], oldPop[i + 1]));
-
+            bool even = oldPop.Count % 2 == 0;
+            var cycles = even
+                ? oldPop.Count
+                : oldPop.Count - 2;
+            for (var i = 0; i < cycles; i += 2) output.AddRange(MixChromosomes(oldPop.PickRandom(), oldPop.PickRandom()));
+            if(!even) output.Add(oldPop.Last());
             return output;
         }
 

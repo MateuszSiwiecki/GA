@@ -23,7 +23,7 @@ namespace GA1.Tests
         [InlineData(1, 2)]
         public void GetElementOfNPositionTest_CheckIfValueAreDifferent_ShouldPass(int a, int b)
         {
-            ResearchDefinitions.SetResearch(-7, 7, 10);
+            ResearchDefinitions.SetResearch(-7, 7, 10, 128);
             var valueFirst = ResearchDefinitions.GetElementOfNPosition(a);
             var valueSecond = ResearchDefinitions.GetElementOfNPosition(b);
             _testOutputHelper.WriteLine($"{valueFirst} : {valueSecond}");

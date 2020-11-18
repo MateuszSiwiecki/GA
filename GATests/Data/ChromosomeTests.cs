@@ -31,7 +31,7 @@ namespace GALib.Tests
         [Fact()]
         public void CalculateFitnessTest_CheckFitnessForRandomGenes_ShouldPass()
         {
-            ResearchDefinitions.SetResearch(-7, 7, 10);
+            ResearchDefinitions.SetResearch(-7, 7, 10, 128);
             var chromosomes = ResearchModel.NewRandomPopulation(ResearchDefinitions.StartPopSize);
             foreach (var chromosome in chromosomes)
             {
@@ -46,6 +46,24 @@ namespace GALib.Tests
             }
 
             Assert.True(errors == 0);
+        }
+
+        [Theory()]
+        [InlineData(3, 2)]
+        [InlineData(3, -2)]
+        [InlineData(-2, -3)]
+        [InlineData(0, -2)]
+        public void CompareToTest_AShouldBeHigher_ShouldPass(double aFitness, double bFitness)
+        {
+            var aChromosome = new Chromosome()
+            {
+                AbsFitness = aFitness
+            };
+            var bChromosome = new Chromosome()
+            {
+                AbsFitness = bFitness
+            };
+            Assert.True(aChromosome.CompareTo(bChromosome) > 0);
         }
     }
 }

@@ -4,11 +4,12 @@ namespace GALib
 {
     public static class ResearchDefinitions
     {
-        public static void SetResearch(double lowerBound, double upperBound, int startPop)
+        public static void SetResearch(double lowerBound, double upperBound, int startPop, int genesCount)
         {
             LowerBound = lowerBound;
             UpperBound = upperBound;
             StartPopSize = startPop;
+            ChromosomeDefinition.SetGenestCount(genesCount);
         }
         public static double LowerBound { get; private set; }
         public static double UpperBound { get; private set; }

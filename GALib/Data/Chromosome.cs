@@ -19,7 +19,7 @@ namespace GALib
         public static Chromosome NewRandomChromosome()
         => new Chromosome
         {
-            Gene = new Random().Next(ChromosomeDefinition.PossibleLargestChromosome)
+            Gene = new Random().Next(ChromosomeDefinition.GenesCount)
         };
         private int _gene;
 
@@ -48,6 +48,6 @@ namespace GALib
         }
         public double CalculateFitness() => ResearchDefinitions.FitFunction(GeneInDecimal());
         public void SetFitness() => Fitness = AbsFitness = CalculateFitness();
-        public int CompareTo(Chromosome other) => _gene - other._gene;
+        public int CompareTo(Chromosome other) => (int)(AbsFitness - other.AbsFitness);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
 
@@ -14,6 +15,13 @@ namespace GALib
             sb.Append(",");
             for (var i = 0; i < numberOfRandomDigitsAfterComa; i++) sb.Append(random.Next(9));
             return double.Parse(sb.ToString(), NumberStyles.Float);
+        }
+
+        public static Chromosome PickRandom(this List<Chromosome> list)
+        {
+            var toReturn = list[new Random().Next(list.Count)];
+            list.Remove(toReturn);
+            return toReturn;
         }
     }
 }
