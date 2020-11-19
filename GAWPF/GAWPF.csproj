@@ -11,7 +11,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\GATests\GALibTests.csproj" />
+    <ProjectReference Include="..\GALib\GALib.csproj" />
+    <ProjectReference Include="..\GAWPFModel\GAWPFModel.csproj" />
   </ItemGroup>
 
 </Project>
