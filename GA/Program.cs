@@ -15,7 +15,7 @@ namespace GA1
             var iterations = 100;
             var functionUnderStudy = new Func<double, double>(x => 0.2 * Math.Pow(x, 3) + 0.1 * Math.Pow(x, 2) - 8 * x);
             var fitFunction = new Func<double, double>(x => -(0.2 * Math.Pow(x, 3) + 0.1 * Math.Pow(x, 2) - 8 * x));
-            var cd = new ChromosomeDefinition(2048);
+            var cd = new ChromosomeDefinition(10);
             var rd = new ResearchDefinitions(functionUnderStudy, fitFunction, - 7, 7, 100, cd);
 
 

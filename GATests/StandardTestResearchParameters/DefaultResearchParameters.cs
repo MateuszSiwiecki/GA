@@ -14,6 +14,6 @@ namespace GALib
                 10,
                 GetChromosomeDefinition());
         public static ChromosomeDefinition GetChromosomeDefinition() =>
-            new ChromosomeDefinition(512);
+            new ChromosomeDefinition(8);
     }
 }

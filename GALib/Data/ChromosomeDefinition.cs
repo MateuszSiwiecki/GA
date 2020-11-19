@@ -10,9 +10,9 @@ namespace GALib
             
         }
 
-        public ChromosomeDefinition(int genesCount)
+        public ChromosomeDefinition(int power)
         {
-            GenesCount = genesCount;
+            GenesCount = (int)Math.Pow(2, power);
         }
         public void SetGenestCount(int count) => GenesCount = count;
         public int GenesCount;
