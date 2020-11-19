@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Reflection.PortableExecutable;
 
 namespace GALib
@@ -6,26 +7,29 @@ namespace GALib
     public class Chromosome : IComparable<Chromosome>
     {
         public readonly ResearchDefinitions rd;
-        public readonly ChromosomeDefinition cd;
-        public Chromosome(ResearchDefinitions rd, ChromosomeDefinition cd)
+        public Chromosome(ResearchDefinitions rd)
         {
             this.rd = rd;
-            this.cd = cd;
         }
 
         public Chromosome(Chromosome oldChromosome)
         {
             this.rd = oldChromosome.rd;
-            this.cd = oldChromosome.cd;
             this._gene = oldChromosome._gene;
             this.Fitness = oldChromosome.Fitness;
             this.AbsFitness = oldChromosome.AbsFitness;
         }
-
-        public static Chromosome NewRandomChromosome(ResearchDefinitions rd, ChromosomeDefinition cd)
-        => new Chromosome(rd, cd)
+        public static List<Chromosome> NewRandomPopulation(ResearchDefinitions rd, int chromosomeCount)
         {
-            Gene = new Random().Next(cd.GenesCount)
+            var list = new List<Chromosome>();
+            for (var i = 0; i < chromosomeCount; i++) list.Add(Chromosome.NewRandomChromosome(rd));
+            return list;
+        }
+
+        public static Chromosome NewRandomChromosome(ResearchDefinitions rd)
+        => new Chromosome(rd)
+        {
+            Gene = new Random().Next(rd.cd.GenesCount)
         };
         private int _gene;
 
@@ -34,8 +38,8 @@ namespace GALib
             get
             {
                 if (_gene < 0) return 0; //check for any incorrect
-                return _gene >= cd.PossibleLargestChromosome
-                    ? cd.PossibleLargestChromosome
+                return _gene >= rd.cd.PossibleLargestChromosome
+                    ? rd.cd.PossibleLargestChromosome
                     : _gene;
             }
             set => _gene = value;
@@ -45,7 +49,7 @@ namespace GALib
         public double AbsFitness;
 
         public double GeneInDecimal() => rd.GetElementOfNPosition(Gene);
-        public string GeneInBinary() => cd.BinaryGeneFix(Convert.ToString(Gene, 2));
+        public string GeneInBinary() => rd.cd.BinaryGeneFix(Convert.ToString(Gene, 2));
 
         public Chromosome SetGene(string geneInBinary)
         {

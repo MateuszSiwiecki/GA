@@ -23,9 +23,8 @@ namespace GALib.Tests
         [InlineData("1010", 10)]
         public void SetGeneTest(string binary, int expectedGene)
         {
-            var cd = DefaultResearchParameters.GetChromosomeDefinition();
-            var rd = DefaultResearchParameters.GetDefaultResearchDefinitions(cd);
-            var chromosome = new Chromosome(rd, cd);
+            var rd = DefaultResearchParameters.GetDefaultResearchDefinitions();
+            var chromosome = new Chromosome(rd);
             chromosome.SetGene(binary);
             _testOutputHelper.WriteLine($"{chromosome.Gene} {expectedGene}");
             Assert.True(chromosome.Gene == expectedGene);
@@ -34,9 +33,8 @@ namespace GALib.Tests
         [Fact()]
         public void CalculateFitnessTest_CheckFitnessForRandomGenes_ShouldPass()
         {
-            var cd = DefaultResearchParameters.GetChromosomeDefinition();
-            var rd = DefaultResearchParameters.GetDefaultResearchDefinitions(cd);
-            var chromosomes = ResearchModel.NewRandomPopulation(rd, cd, rd.StartPopSize);
+            var rd = DefaultResearchParameters.GetDefaultResearchDefinitions();
+            var chromosomes = Chromosome.NewRandomPopulation(rd, rd.StartPopSize);
             foreach (var chromosome in chromosomes)
             {
                 chromosome.SetFitness();
@@ -59,13 +57,12 @@ namespace GALib.Tests
         [InlineData(0, -2)]
         public void CompareToTest_AShouldBeHigher_ShouldPass(double aFitness, double bFitness)
         {
-            var cd = DefaultResearchParameters.GetChromosomeDefinition();
-            var rd = DefaultResearchParameters.GetDefaultResearchDefinitions(cd);
-            var aChromosome = new Chromosome(rd, cd)
+            var rd = DefaultResearchParameters.GetDefaultResearchDefinitions();
+            var aChromosome = new Chromosome(rd)
             {
                 AbsFitness = aFitness
             };
-            var bChromosome = new Chromosome(rd, cd)
+            var bChromosome = new Chromosome(rd)
             {
                 AbsFitness = bFitness
             };
