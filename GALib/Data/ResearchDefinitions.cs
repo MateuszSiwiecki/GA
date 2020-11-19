@@ -23,6 +23,6 @@ namespace GALib
         public dynamic FunctionUnderStudy;
         public dynamic FitFunction;
         public double ROfSeries => (UpperBound - LowerBound) / cd.GenesCount;
-        public double GetElementOfNPosition(int nPosition) => LowerBound + ROfSeries * nPosition;
+        public double GetElementOfNPosition(long nPosition) => LowerBound + ROfSeries * nPosition;
     }
 }

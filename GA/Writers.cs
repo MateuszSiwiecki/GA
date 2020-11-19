@@ -21,6 +21,10 @@ namespace GA1
         private static void Write(IEnumerable<Chromosome> list)
         {
             foreach (var chromosome in list) WriteChromosome(chromosome);
+            var mediumAbsFitness = list.Sum(x => x.AbsFitness) / list.Count();
+            var mediumFitness = list.Sum(x => x.Fitness) / list.Count();
+            Console.WriteLine($"Abs medium fitness = {mediumAbsFitness}");
+            Console.WriteLine($"Medium fitness = {mediumFitness}");
             WriteSeparator();
         }
         private static void WriteChromosome(Chromosome chromosome)

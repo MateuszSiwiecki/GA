@@ -5,18 +5,19 @@ namespace GALib
 {
     public class ChromosomeDefinition
     {
-        public ChromosomeDefinition()
-        {
-            
-        }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="power">Max = 30, min = 1</param>
         public ChromosomeDefinition(int power)
         {
-            GenesCount = (int)Math.Pow(2, power);
+            power = power <= 30 ? power : 30;
+            power = power > 0 ? power : 1;
+            GenesCount = (long)Math.Pow(2, power);
         }
         public void SetGenestCount(int count) => GenesCount = count;
-        public int GenesCount;
-        public int PossibleLargestChromosome => GenesCount - 1;
+        public long GenesCount;
+        public long PossibleLargestChromosome => GenesCount - 1;
         public int ChromosomeLength => (int)Math.Log2(GenesCount);
 
         public string BinaryGeneFix(string gene)

@@ -29,11 +29,11 @@ namespace GALib
         public static Chromosome NewRandomChromosome(ResearchDefinitions rd)
         => new Chromosome(rd)
         {
-            Gene = new Random().Next(rd.cd.GenesCount)
+            Gene = Utils.LongRandom(rd.cd.GenesCount)
         };
-        private int _gene;
+        private long _gene;
 
-        public int Gene
+        public long Gene
         {
             get
             {
@@ -53,7 +53,7 @@ namespace GALib
 
         public Chromosome SetGene(string geneInBinary)
         {
-            _gene = Convert.ToInt32(geneInBinary, 2);
+            _gene = Convert.ToInt64(geneInBinary, 2);
             return this;
         }
         public double CalculateFitness() => rd.FitFunction(GeneInDecimal());

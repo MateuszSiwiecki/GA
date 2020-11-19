@@ -23,5 +23,13 @@ namespace GALib
             list.Remove(toReturn);
             return toReturn;
         }
+        public static long LongRandom(long max)
+        {
+            var rand = new Random();
+            long result = rand.Next((Int32)(0 >> 32), (Int32)(max >> 32));
+            result = (result << 32);
+            result = result | (long)rand.Next((Int32)0, (Int32)max);
+            return result;
+        }
     }
 }

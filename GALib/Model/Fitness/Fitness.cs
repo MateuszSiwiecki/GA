@@ -6,7 +6,7 @@ namespace GALib.Fitness
 {
     public static class Fitness
     {
-        private static List<Chromosome> FitPop(List<Chromosome> listOfChromosomes)
+        public static List<Chromosome> FitPop(List<Chromosome> listOfChromosomes)
         {
             foreach (var chromosome in listOfChromosomes) chromosome.SetFitness();
             return listOfChromosomes;
