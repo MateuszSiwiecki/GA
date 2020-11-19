@@ -10,11 +10,12 @@ namespace GA1.Tests
 {
     public class ResearchModelTests
     {
-        private int numberOfPopsToTest = 1000;
         [Fact()]
         public void NewRandomPopulationTest_RandomChromosomes_ShouldPassWithErrorMargin()
         {
-            var listOfPop = ResearchModel.NewRandomPopulation(10);
+            var cd = DefaultResearchParameters.GetChromosomeDefinition();
+            var rd = DefaultResearchParameters.GetDefaultResearchDefinitions(cd);
+            var listOfPop = ResearchModel.NewRandomPopulation(rd, cd, 10);
             var errorMargin = 2;
             var errors = 0;
             for (int i = 0; i < listOfPop.Count - 1; i++)
@@ -28,7 +29,9 @@ namespace GA1.Tests
         [Fact()]
         public void FixedFitPopTest_RandomPop_ShouldPass()
         {
-            var listOfPop = ResearchModel.NewRandomPopulation(10);
+            var cd = DefaultResearchParameters.GetChromosomeDefinition();
+            var rd = DefaultResearchParameters.GetDefaultResearchDefinitions(cd);
+            var listOfPop = ResearchModel.NewRandomPopulation(rd, cd, 10);
             var list = ResearchModel.FixedFitPop(listOfPop, out var lowestKey);
             _testOutputHelper.WriteLine($"Lowest key {lowestKey}");
             Assert.True(lowestKey > 0);
@@ -42,8 +45,10 @@ namespace GA1.Tests
         [Fact()]
         public void RouletteWheelTest_NormalPopWithFixedFitness_ShouldPass()
         {
+            var cd = DefaultResearchParameters.GetChromosomeDefinition();
+            var rd = DefaultResearchParameters.GetDefaultResearchDefinitions(cd);
             var testPop = ResearchModel.FixedFitPop(
-                ResearchModel.NewRandomPopulation(numberOfPopsToTest));
+                ResearchModel.NewRandomPopulation(rd, cd, rd.StartPopSize));
             var outputTestPop = new RouletteWheel().DrawChromosomes(testPop);
 
             var fitnessSumTestPop = testPop.Sum(x => x.Fitness);

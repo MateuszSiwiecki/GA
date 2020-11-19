@@ -7,10 +7,10 @@ namespace GALib
 {
     public static class ResearchModel
     {
-        public static List<Chromosome> NewRandomPopulation(int chromosomeCount)
+        public static List<Chromosome> NewRandomPopulation(ResearchDefinitions rd, ChromosomeDefinition cd, int chromosomeCount)
         {
             var list = new List<Chromosome>();
-            for (var i = 0; i < chromosomeCount; i++) list.Add(Chromosome.NewRandomChromosome());
+            for (var i = 0; i < chromosomeCount; i++) list.Add(Chromosome.NewRandomChromosome(rd, cd));
             return list;
         }
 

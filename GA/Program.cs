@@ -12,13 +12,17 @@ namespace GA1
         public static void Main(string[] args)
         {
             var iterations = 100;
-
-            ResearchDefinitions.SetResearch(-7, 7, 100, 2048);
+            var functionUnderStudy = new Func<double, double>(x => 0.2 * Math.Pow(x, 3) + 0.1 * Math.Pow(x, 2) - 8 * x);
+            var fitFunction = new Func<double, double>(x => -(0.2 * Math.Pow(x, 3) + 0.1 * Math.Pow(x, 2) - 8 * x));
+            var cd = new ChromosomeDefinition(2048);
+            var rd = new ResearchDefinitions(functionUnderStudy, fitFunction, - 7, 7, 100, cd);
 
 
             var startPop = ResearchModel.FixedFitPop(
                 ResearchModel.NewRandomPopulation(
-                ResearchDefinitions.StartPopSize));
+                    rd,
+                    cd,
+                    rd.StartPopSize));
             Console.WriteLine("\nStart pop:\n");
             Writers.WriteSortedByFitness(startPop);
 

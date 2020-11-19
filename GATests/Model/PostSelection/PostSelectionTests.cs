@@ -19,8 +19,10 @@ namespace GALib.PostSelection.Tests
         [Fact()]
         public void MixChromosomesTest_NormalRandomChromosomes_ShouldPass()
         {
-            var chromosomeA = Chromosome.NewRandomChromosome();
-            var chromosomeB = Chromosome.NewRandomChromosome();
+            var cd = DefaultResearchParameters.GetChromosomeDefinition();
+            var rd = DefaultResearchParameters.GetDefaultResearchDefinitions(cd);
+            var chromosomeA = Chromosome.NewRandomChromosome(rd, cd);
+            var chromosomeB = Chromosome.NewRandomChromosome(rd, cd);
 
             var output = PostSelection.MixChromosomes(chromosomeA, chromosomeB);
 

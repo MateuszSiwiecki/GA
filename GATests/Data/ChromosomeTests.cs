@@ -23,16 +23,20 @@ namespace GALib.Tests
         [InlineData("1010", 10)]
         public void SetGeneTest(string binary, int expectedGene)
         {
-            var chromosome = new Chromosome();
+            var cd = DefaultResearchParameters.GetChromosomeDefinition();
+            var rd = DefaultResearchParameters.GetDefaultResearchDefinitions(cd);
+            var chromosome = new Chromosome(rd, cd);
             chromosome.SetGene(binary);
+            _testOutputHelper.WriteLine($"{chromosome.Gene} {expectedGene}");
             Assert.True(chromosome.Gene == expectedGene);
         }
 
         [Fact()]
         public void CalculateFitnessTest_CheckFitnessForRandomGenes_ShouldPass()
         {
-            ResearchDefinitions.SetResearch(-7, 7, 10, 128);
-            var chromosomes = ResearchModel.NewRandomPopulation(ResearchDefinitions.StartPopSize);
+            var cd = DefaultResearchParameters.GetChromosomeDefinition();
+            var rd = DefaultResearchParameters.GetDefaultResearchDefinitions(cd);
+            var chromosomes = ResearchModel.NewRandomPopulation(rd, cd, rd.StartPopSize);
             foreach (var chromosome in chromosomes)
             {
                 chromosome.SetFitness();
@@ -55,11 +59,13 @@ namespace GALib.Tests
         [InlineData(0, -2)]
         public void CompareToTest_AShouldBeHigher_ShouldPass(double aFitness, double bFitness)
         {
-            var aChromosome = new Chromosome()
+            var cd = DefaultResearchParameters.GetChromosomeDefinition();
+            var rd = DefaultResearchParameters.GetDefaultResearchDefinitions(cd);
+            var aChromosome = new Chromosome(rd, cd)
             {
                 AbsFitness = aFitness
             };
-            var bChromosome = new Chromosome()
+            var bChromosome = new Chromosome(rd, cd)
             {
                 AbsFitness = bFitness
             };

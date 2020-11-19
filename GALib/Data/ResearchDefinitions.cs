@@ -2,22 +2,27 @@
 
 namespace GALib
 {
-    public static class ResearchDefinitions
+    public class ResearchDefinitions
     {
-        public static void SetResearch(double lowerBound, double upperBound, int startPop, int genesCount)
+        public ChromosomeDefinition cd;
+        public ResearchDefinitions()
+        { }
+
+        public ResearchDefinitions(dynamic functionUnderStudy, dynamic fitFunction, double lowerBound, double upperBound, int startPop, ChromosomeDefinition cd)
         {
             LowerBound = lowerBound;
             UpperBound = upperBound;
             StartPopSize = startPop;
-            ChromosomeDefinition.SetGenestCount(genesCount);
+            FunctionUnderStudy = functionUnderStudy;
+            this.cd = cd;
+            FitFunction = fitFunction;
         }
-        public static double LowerBound { get; private set; }
-        public static double UpperBound { get; private set; }
-        public static int StartPopSize { get; private set; }
-        public static double FunctionUnderStudy(double x)
-            => (0.2 * Math.Pow(x, 3)) + (0.1 * Math.Pow(x, 2)) - (8 * x);
-        public static double FitFunction(double x) => -FunctionUnderStudy(x);
-        public static double ROfSeries => (UpperBound - LowerBound) / ChromosomeDefinition.GenesCount;
-        public static double GetElementOfNPosition(int nPosition) => LowerBound + ROfSeries * nPosition;
+        public double LowerBound { get; private set; }
+        public double UpperBound { get; private set; }
+        public int StartPopSize { get; private set; }
+        public dynamic FunctionUnderStudy;
+        public dynamic FitFunction;
+        public double ROfSeries => (UpperBound - LowerBound) / cd.GenesCount;
+        public double GetElementOfNPosition(int nPosition) => LowerBound + ROfSeries * nPosition;
     }
 }

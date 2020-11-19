@@ -24,11 +24,12 @@ namespace GA1.Tests
         [InlineData("11")]
         public void BinaryGeneFixTest_NormalData_ShouldPass(string valueToFix)
         {
-            var value = ChromosomeDefinition.BinaryGeneFix(valueToFix);
+            var cd = DefaultResearchParameters.GetChromosomeDefinition();
+            var value = cd.BinaryGeneFix(valueToFix);
             int result = -1;
-            _testOutputHelper.WriteLine($"Chromosome lenght = {ChromosomeDefinition.ChromosomeLength}");
+            _testOutputHelper.WriteLine($"Chromosome lenght = {cd.ChromosomeLength}");
             _testOutputHelper.WriteLine(value);
-            Assert.True(value.Length == ChromosomeDefinition.ChromosomeLength);
+            Assert.True(value.Length == cd.ChromosomeLength);
             Assert.True(int.TryParse(value, out result));
         }
     }

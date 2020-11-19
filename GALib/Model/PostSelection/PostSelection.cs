@@ -43,7 +43,7 @@ namespace GALib.PostSelection
 
             return new List<Chromosome>
             {
-                new Chromosome().SetGene(sbA.ToString()), new Chromosome().SetGene(sbB.ToString())
+                new Chromosome(a.rd, a.cd).SetGene(sbA.ToString()), new Chromosome(a.rd, a.cd).SetGene(sbB.ToString())
             };
         }
     }
