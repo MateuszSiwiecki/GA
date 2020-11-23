@@ -5,15 +5,20 @@ namespace GALib
 {
     public class ChromosomeDefinition
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="power">Max = 30, min = 1</param>
         public ChromosomeDefinition(int power)
         {
-            power = power <= 30 ? power : 30;
-            power = power > 0 ? power : 1;
-            GenesCount = (long)Math.Pow(2, power);
+            if (power == 0)
+            {
+                GenesCount = 1;
+                return;
+            }
+            long output = 2;
+            for (int i = 1; i < power; i++)
+            {
+                output *= 2;
+            }
+
+            GenesCount = output;
         }
         public void SetGenestCount(int count) => GenesCount = count;
         public long GenesCount;

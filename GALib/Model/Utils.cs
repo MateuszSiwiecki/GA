@@ -25,10 +25,11 @@ namespace GALib
         }
         public static long LongRandom(long max)
         {
+            if (max >> 32 <= 0) return new Random().Next((int) max);
             var rand = new Random();
-            long result = rand.Next((Int32)(0 >> 32), (Int32)(max >> 32));
-            result = (result << 32);
-            result = result | (long)rand.Next((Int32)0, (Int32)max);
+            long result = rand.Next((int)(max >> 32));
+            result <<= 32;
+            result |= rand.Next(int.MaxValue);
             return result;
         }
     }

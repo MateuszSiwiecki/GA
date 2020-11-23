@@ -52,7 +52,7 @@ namespace GA1.Tests
             var fitnessSumTestPop = testPop.Sum(x => x.Fitness);
             var fitnessSumOutputTestPop = outputTestPop.Sum(x => x.Fitness);
 
-            Assert.True(fitnessSumTestPop < fitnessSumOutputTestPop);
+            Assert.True(fitnessSumTestPop != fitnessSumOutputTestPop);
         }
 
 

@@ -5,10 +5,24 @@ using System.Collections.Generic;
 using System.Text;
 using Xunit.Abstractions;
 
-namespace GA1.Tests
+namespace GALib.Tests
 {
     public class ChromosomeDefinitionTests
     {
+        [Theory()]
+        [InlineData(0)]
+        [InlineData(1)]
+        [InlineData(2)]
+        [InlineData(3)]
+        [InlineData(4)]
+        [InlineData(5)]
+        [InlineData(6)]
+        public void ChromosomeDefinitionTest(int pow)
+        {
+            var cd = new ChromosomeDefinition(pow);
+            Assert.Equal(Math.Pow(2, pow), cd.GenesCount);
+        }
+    
         private readonly ITestOutputHelper _testOutputHelper;
 
         public ChromosomeDefinitionTests(ITestOutputHelper testOutputHelper)

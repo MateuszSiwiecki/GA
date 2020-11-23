@@ -26,8 +26,8 @@ namespace GA1.Tests
         {
             var output = Utils.RandomNumberDigits(numberOfDigits);
             _testOutputHelper.WriteLine($"{output}");
-            Assert.True(output > 0);
-            Assert.True(output < 100);
+            Assert.True(output >= 0);
+            Assert.True(output <= 100);
         }
     }
 }

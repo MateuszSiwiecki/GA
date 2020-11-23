@@ -26,11 +26,11 @@ namespace GA1
          */
         public static void Main(string[] args)
         {
-            var iterations = 1000;
+            var iterations = 100;
             var functionUnderStudy = new Func<double, double>(x => 0.2 * Math.Pow(x, 3) + 0.1 * Math.Pow(x, 2) - 8 * x);
             var fitFunction = new Func<double, double>(x => -(0.2 * Math.Pow(x, 3) + 0.1 * Math.Pow(x, 2) - 8 * x));
-            var cd = new ChromosomeDefinition(30);
-            var rd = new ResearchDefinitions(functionUnderStudy, fitFunction, -7, 7, 1000, cd);
+            var cd = new ChromosomeDefinition(64);
+            var rd = new ResearchDefinitions(functionUnderStudy, fitFunction, -7, 7, 10, cd);
             var listOfMediumAbsFitness = new List<double>();
 
             var startPop = Fitness.FitPop(
