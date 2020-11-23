@@ -56,7 +56,7 @@ namespace GALib
             _gene = Convert.ToInt64(geneInBinary, 2);
             return this;
         }
-        public double CalculateFitness() => rd.FitFunction(GeneInDecimal());
+        public double CalculateFitness() => rd.FitFunction(new []{GeneInDecimal()});
         public void SetFitness() => Fitness = AbsFitness = CalculateFitness();
         public int CompareTo(Chromosome other) => (int)(AbsFitness - other.AbsFitness);
     }

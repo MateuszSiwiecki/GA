@@ -8,7 +8,7 @@ namespace GALib
         public ResearchDefinitions()
         { }
 
-        public ResearchDefinitions(dynamic functionUnderStudy, dynamic fitFunction, double lowerBound, double upperBound, int startPop, ChromosomeDefinition cd)
+        public ResearchDefinitions(Func<double[], double> functionUnderStudy, Func<double[], double> fitFunction, double lowerBound, double upperBound, int startPop, ChromosomeDefinition cd)
         {
             LowerBound = lowerBound;
             UpperBound = upperBound;
@@ -20,8 +20,8 @@ namespace GALib
         public double LowerBound { get; private set; }
         public double UpperBound { get; private set; }
         public int StartPopSize { get; private set; }
-        public dynamic FunctionUnderStudy;
-        public dynamic FitFunction;
+        public Func<double[], double> FunctionUnderStudy;
+        public Func<double[], double> FitFunction;
         public double ROfSeries => (UpperBound - LowerBound) / cd.GenesCount;
         public double GetElementOfNPosition(long nPosition) => LowerBound + ROfSeries * nPosition;
     }
