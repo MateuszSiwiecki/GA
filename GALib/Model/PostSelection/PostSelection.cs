@@ -8,38 +8,39 @@ namespace GALib.PostSelection
 {
     public class PostSelection
     {
-        public static List<Chromosome> CreateNewPopulation(List<Chromosome> oldPop)
+        public static List<Chromosome> CreateNewPopulation(List<Chromosome> oldPop, double mixChance)
         {
             var output = new List<Chromosome>();
             bool even = oldPop.Count % 2 == 0;
             var cycles = even
                 ? oldPop.Count
                 : oldPop.Count - 2;
-            for (var i = 0; i < cycles; i += 2) output.AddRange(MixChromosomes(oldPop.PickRandom(), oldPop.PickRandom()));
-            if(!even) output.Add(oldPop.Last());
+            for (var i = 0; i < cycles; i += 2) output.AddRange(MixChromosomes(oldPop.PickRandom(), oldPop.PickRandom(), mixChance));
+            if (!even) output.Add(oldPop.Last());
             return output;
         }
 
-        public static List<Chromosome> MixChromosomes(Chromosome a, Chromosome b)
+        public static List<Chromosome> MixChromosomes(Chromosome a, Chromosome b, double mixChance)
         {
+            if (mixChance < new Random().NextDouble())
+            {
+                return new List<Chromosome>
+                {
+                    a, b
+                };
+            }
             var sbA = new StringBuilder();
             var sbB = new StringBuilder();
             var aBinaryGene = a.GeneInBinary();
             var bBinaryGene = b.GeneInBinary();
-            var rnd = new Random();
-            for (int i = 0; i < aBinaryGene.Length; i++)
-            {
-                if (rnd.Next(2) == 1)
-                {
-                    sbA.Append(aBinaryGene[i]);
-                    sbB.Append(bBinaryGene[i]);
-                }
-                else
-                {
-                    sbA.Append(bBinaryGene[i]);
-                    sbB.Append(aBinaryGene[i]);
-                }
-            }
+
+            var pointOfCrossing = new Random().Next(1, aBinaryGene.Length - 1);
+
+            sbA.Append(aBinaryGene.Substring(0, pointOfCrossing));
+            sbA.Append(bBinaryGene.Substring(pointOfCrossing));
+
+            sbB.Append(bBinaryGene.Substring(0, pointOfCrossing));
+            sbB.Append(aBinaryGene.Substring(pointOfCrossing));
 
             return new List<Chromosome>
             {

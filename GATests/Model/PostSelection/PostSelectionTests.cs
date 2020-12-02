@@ -23,12 +23,17 @@ namespace GALib.PostSelection.Tests
             var chromosomeA = Chromosome.NewRandomChromosome(rd);
             var chromosomeB = Chromosome.NewRandomChromosome(rd);
 
-            var output = PostSelection.MixChromosomes(chromosomeA, chromosomeB);
+            var output = PostSelection.MixChromosomes(chromosomeA, chromosomeB, 1);
 
             _testOutputHelper.WriteLine($"{output[0].Gene}");
             _testOutputHelper.WriteLine($"{output[1].Gene}");
             _testOutputHelper.WriteLine($"{chromosomeA.Gene}");
             _testOutputHelper.WriteLine($"{chromosomeB.Gene}");
+
+            _testOutputHelper.WriteLine($"{output[0].GeneInBinary()}");
+            _testOutputHelper.WriteLine($"{output[1].GeneInBinary()}");
+            _testOutputHelper.WriteLine($"{chromosomeA.GeneInBinary()}");
+            _testOutputHelper.WriteLine($"{chromosomeB.GeneInBinary()}");
             
             Assert.NotEqual(output[0].Gene, output[1].Gene);
             Assert.NotEqual(output[0].Gene, chromosomeA.Gene);

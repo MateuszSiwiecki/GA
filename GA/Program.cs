@@ -43,7 +43,7 @@ namespace GA1
 
             var preselectedPop = new RouletteWheel().DrawChromosomes(startPop);
 
-            var nextGenPop = Fitness.FitPop(PostSelection.CreateNewPopulation(preselectedPop));
+            var nextGenPop = Fitness.FitPop(PostSelection.CreateNewPopulation(preselectedPop, rd.MutationChance));
             var bestChromosome = new BestChromosome()
             {
                 bestChromosome = nextGenPop.Max(x => x),
@@ -53,7 +53,7 @@ namespace GA1
 
             for (int i = 1; i < iterations; i++)
             {
-                nextGenPop = Fitness.FitPop(PostSelection.CreateNewPopulation(nextGenPop));
+                nextGenPop = Fitness.FitPop(PostSelection.CreateNewPopulation(nextGenPop, rd.MutationChance));
                 if (bestChromosome.bestChromosome.AbsFitness < nextGenPop.Max(x => x.AbsFitness))
                 {
                     bestChromosome.bestChromosome = nextGenPop.FirstOrDefault(x => x.AbsFitness == nextGenPop.Max(y => y.AbsFitness));
