@@ -11,13 +11,13 @@ namespace GALib
 
         public ResearchDefinitions(ChromosomeDefinition chromosomeDefinition,
             Function function,
-            int startPop,
+            int population,
             double mutationChance,
             double crossChance)
         {
             this.chromosomeDefinition = chromosomeDefinition;
             this.function = function;
-            StartPopSize = startPop;
+            Population = population;
             MutationChance = mutationChance;
             CrossChance = crossChance;
         }
@@ -28,7 +28,7 @@ namespace GALib
         public Func<double[], double> FitFunction => function.FitFunction;
         public double MutationChance { get; private set; }
         public double CrossChance { get; private set; }
-        public int StartPopSize { get; private set; }
+        public int Population { get; private set; }
         public double ROfSeries => (UpperBound - LowerBound) / chromosomeDefinition.GenesCount;
         public double GetElementOfNPosition(long nPosition) => LowerBound + ROfSeries * nPosition;
     }

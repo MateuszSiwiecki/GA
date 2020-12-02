@@ -29,12 +29,24 @@ namespace GALib.Tests
             _testOutputHelper.WriteLine($"{chromosome.Gene} {expectedGene}");
             Assert.True(chromosome.Gene == expectedGene);
         }
+        [Theory()]
+        [InlineData(1)]
+        [InlineData(2)]
+        [InlineData(3)]
+        [InlineData(62)]
+        public void GeneInBinaryTest_CheckForLengthOfGene_ShouldPass(int pow)
+        {
+            var rd = DefaultResearchParameters.GetDefaultResearchDefinitions(pow);
+            var rndChromosome = Chromosome.NewRandomChromosome(rd);
+            Assert.True(rndChromosome.GeneInBinary().Length == pow);
+            _testOutputHelper.WriteLine(rndChromosome.GeneInBinary());
+        }
 
         [Fact()]
         public void CalculateFitnessTest_CheckFitnessForRandomGenes_ShouldPass()
         {
             var rd = DefaultResearchParameters.GetDefaultResearchDefinitions();
-            var chromosomes = Chromosome.NewRandomPopulation(rd, rd.StartPopSize);
+            var chromosomes = Chromosome.NewRandomPopulation(rd, rd.Population);
             foreach (var chromosome in chromosomes)
             {
                 chromosome.SetFitness();

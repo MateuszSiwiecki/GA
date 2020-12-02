@@ -1,11 +1,7 @@
 ﻿using Xunit;
-using GALib;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Xunit.Abstractions;
 
-namespace GA1.Tests
+namespace GALib.Tests
 {
     public class ResearchDefinitionsTests
     {

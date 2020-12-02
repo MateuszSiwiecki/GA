@@ -35,7 +35,7 @@ namespace GALib.PostSelection
             var aBinaryGene = a.GeneInBinary();
             var bBinaryGene = b.GeneInBinary();
 
-            var pointOfCrossing = new Random().Next(1, aBinaryGene.Length - 1);
+            var pointOfCrossing = new Random().Next(1, aBinaryGene.Length);
 
             sbA.Append(aBinaryGene.Substring(0, pointOfCrossing));
             sbA.Append(bBinaryGene.Substring(pointOfCrossing));

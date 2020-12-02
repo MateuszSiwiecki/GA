@@ -39,7 +39,7 @@ namespace GA1
             var startPop = Fitness.FitPop(
                 Chromosome.NewRandomPopulation(
                     rd,
-                    rd.StartPopSize));
+                    rd.Population));
             listOfMediumAbsFitness.Add(startPop.Sum(x => x.AbsFitness) / startPop.Count);
 
             var preselectedPop = new RouletteWheel().DrawChromosomes(startPop);

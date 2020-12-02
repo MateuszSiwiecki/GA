@@ -2,6 +2,7 @@
 using GALib.PostSelection;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Xunit.Abstractions;
 
@@ -16,30 +17,71 @@ namespace GALib.PostSelection.Tests
             _testOutputHelper = testOutputHelper;
         }
 
-        [Fact()]
-        public void MixChromosomesTest_NormalRandomChromosomes_ShouldPass()
+        [Theory()]
+        [InlineData(2)]
+        [InlineData(3)]
+        [InlineData(5)]
+        [InlineData(10)]
+        [InlineData(15)]
+        [InlineData(62)]
+        public void MixChromosomesTest_EdgeChromosomes_NormalPower_ShouldPass(int pow)
         {
-            var rd = DefaultResearchParameters.GetDefaultResearchDefinitions();
+            var rd = DefaultResearchParameters.GetDefaultResearchDefinitions(pow);
+            var highestChromosome = DefaultResearchParameters.GetHigherChromosome(rd);
+            var lowestChromosome = DefaultResearchParameters.GetLowestChromosome(rd);
+
+            _testOutputHelper.WriteLine(highestChromosome.GeneInBinary());
+            _testOutputHelper.WriteLine(lowestChromosome.GeneInBinary());
+
+            var output = PostSelection.MixChromosomes(highestChromosome, lowestChromosome, 1);
+            foreach (var chromosome in output)
+            {
+                Assert.Contains("1", chromosome.GeneInBinary());
+                Assert.Contains("0", chromosome.GeneInBinary());
+                _testOutputHelper.WriteLine(chromosome.GeneInBinary());
+            }
+        }
+        [Theory()]
+        [InlineData(2)]
+        [InlineData(3)]
+        [InlineData(5)]
+        [InlineData(10)]
+        [InlineData(15)]
+        public void MixChromosomesTest_NormalChromosome_NormalPower_TestOutputLength_ShouldPass(int pow)
+        {
+            var rd = DefaultResearchParameters.GetDefaultResearchDefinitions(pow);
             var chromosomeA = Chromosome.NewRandomChromosome(rd);
             var chromosomeB = Chromosome.NewRandomChromosome(rd);
 
+            _testOutputHelper.WriteLine(chromosomeA.GeneInBinary());
+            _testOutputHelper.WriteLine(chromosomeB.GeneInBinary());
+
             var output = PostSelection.MixChromosomes(chromosomeA, chromosomeB, 1);
+            foreach (var chromosome in output)
+            {
+                Assert.True(chromosome.GeneInBinary().Length == pow);
+                _testOutputHelper.WriteLine(chromosome.GeneInBinary());
+            }
+        }
 
-            _testOutputHelper.WriteLine($"{output[0].Gene}");
-            _testOutputHelper.WriteLine($"{output[1].Gene}");
-            _testOutputHelper.WriteLine($"{chromosomeA.Gene}");
-            _testOutputHelper.WriteLine($"{chromosomeB.Gene}");
-
-            _testOutputHelper.WriteLine($"{output[0].GeneInBinary()}");
-            _testOutputHelper.WriteLine($"{output[1].GeneInBinary()}");
-            _testOutputHelper.WriteLine($"{chromosomeA.GeneInBinary()}");
-            _testOutputHelper.WriteLine($"{chromosomeB.GeneInBinary()}");
-            
-            Assert.NotEqual(output[0].Gene, output[1].Gene);
-            Assert.NotEqual(output[0].Gene, chromosomeA.Gene);
-            Assert.NotEqual(output[0].Gene, chromosomeB.Gene);
-            Assert.NotEqual(output[1].Gene, chromosomeA.Gene);
-            Assert.NotEqual(output[1].Gene, chromosomeB.Gene);
+        [Fact]
+        public void MixChromosomesTest_TryFindCrossingPointOnEndAllel_ShouldPass()
+        {
+            var rd = DefaultResearchParameters.GetDefaultResearchDefinitions(4);
+            var highestChromosome = DefaultResearchParameters.GetHigherChromosome(rd);
+            var lowestChromosome = DefaultResearchParameters.GetLowestChromosome(rd);
+            var output = new List<Chromosome>();
+            var found = false;
+            for (int i = 0; i < 1000; i++)
+            {
+                output = PostSelection.MixChromosomes(highestChromosome, lowestChromosome, 1);
+                if (output.All(x => x.GeneInBinary() != "1110")) continue;
+                found = true;
+                break;
+            }
+            _testOutputHelper.WriteLine(output[0].GeneInBinary());
+            _testOutputHelper.WriteLine(output[1].GeneInBinary());
+            Assert.True(found);
         }
     }
 }

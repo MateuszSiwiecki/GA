@@ -4,10 +4,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using GALib.Fitness;
 using Xunit.Abstractions;
 
-namespace GA1.Tests
+namespace GALib.Fitness.Tests
 {
     public class FitnessTests
     {
@@ -46,7 +45,7 @@ namespace GA1.Tests
         {
             var rd = DefaultResearchParameters.GetDefaultResearchDefinitions();
             var testPop = Fitness.FixedFitPop(
-                Chromosome.NewRandomPopulation(rd, rd.StartPopSize));
+                Chromosome.NewRandomPopulation(rd, rd.Population));
             var outputTestPop = new RouletteWheel().DrawChromosomes(testPop);
 
             var fitnessSumTestPop = testPop.Sum(x => x.Fitness);
@@ -54,8 +53,6 @@ namespace GA1.Tests
 
             Assert.True(fitnessSumTestPop != fitnessSumOutputTestPop);
         }
-
-
 
         private readonly ITestOutputHelper _testOutputHelper;
 

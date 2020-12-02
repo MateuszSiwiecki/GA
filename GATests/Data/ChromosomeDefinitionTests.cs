@@ -16,6 +16,7 @@ namespace GALib.Tests
             _testOutputHelper = testOutputHelper;
         }
 
+
         [Theory()]
         [InlineData(0)]
         [InlineData(1)]
