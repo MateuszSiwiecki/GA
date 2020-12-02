@@ -17,7 +17,7 @@ namespace GALib.Fitness
             listOfChromosomes = FitPop(listOfChromosomes);
             lowestKey = Math.Abs(listOfChromosomes.Min(x => x.Fitness));
             var tempLowestKey = lowestKey;
-            foreach (var chromosome in listOfChromosomes) chromosome.Fitness += tempLowestKey;
+            foreach (var chromosome in listOfChromosomes) chromosome.Fitness += 30;//tempLowestKey;
             return listOfChromosomes;
         }
 

@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace GALib
 {
-    public abstract class BasicSelection : ISelection
+    public abstract class Selection
     {
         /// <summary>
         /// Draw random number from 0 to 100, then compare with probability table.
@@ -11,7 +11,7 @@ namespace GALib
         /// <param name="listOfChromosomes"></param>
         /// <param name="probabilityTable">The probability of individual chromosome</param>
         /// <returns></returns>
-        protected Chromosome DrawChromosome(List<Chromosome> listOfChromosomes, double[] probabilityTable)
+        protected virtual Chromosome DrawChromosome(List<Chromosome> listOfChromosomes, double[] probabilityTable)
         {
             var random = Utils.RandomNumberDigits(3);
             var index = -1;

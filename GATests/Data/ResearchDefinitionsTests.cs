@@ -25,5 +25,20 @@ namespace GALib.Tests
             _testOutputHelper.WriteLine($"{valueFirst} : {valueSecond}");
             Assert.False(valueFirst == valueSecond);
         }
+
+        [Fact]
+        public void GetElementOfNPositionTest_CheckCorrectness_LowestElement_ShouldPass()
+        {
+            var rd = DefaultResearchParameters.GetDefaultResearchDefinitions();
+            var lowestElement = rd.GetElementOfNPosition(0);
+            Assert.True(lowestElement == rd.LowerBound);
+        }
+        [Fact]
+        public void GetElementOfNPositionTest_CheckCorrectness_HighestElement_ShouldPass()
+        {
+            var rd = DefaultResearchParameters.GetDefaultResearchDefinitions();
+            var highestElement = rd.GetElementOfNPosition(rd.chromosomeDefinition.GenesCount);
+            Assert.True(highestElement == rd.UpperBound);
+        }
     }
 }

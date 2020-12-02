@@ -2,7 +2,7 @@
 
 namespace GALib
 {
-    public class RouletteWheel : BasicSelection
+    public class RouletteWheel : Selection
     {
         public override List<Chromosome> DrawChromosomes(List<Chromosome> listOfChromosomes)
         {

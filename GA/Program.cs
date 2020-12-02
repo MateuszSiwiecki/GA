@@ -30,8 +30,8 @@ namespace GA1
         {
             var iterations = 1000;
             var functionUnderStudy = new Func<double[], double>(x => 0.2 * Math.Pow(x[0], 3) + 0.1 * Math.Pow(x[0], 2) - 8 * x[0]);
-            var fitFunction = new Func<double[], double>(x => -(0.2 * Math.Pow(x[0], 3) + 0.1 * Math.Pow(x[0], 2) - 8 * x[0]));
-            var cd = new ChromosomeDefinition(6);
+            var fitFunction = new Func<double[], double>(x => Math.Sin(x[0]));
+            var cd = new ChromosomeDefinition(10);
             var fc = new Function(functionUnderStudy, fitFunction, -7, 7);
             var rd = new ResearchDefinitions(cd, fc, 100, 0.1, 0.5);
             var listOfMediumAbsFitness = new List<double>();
@@ -40,7 +40,7 @@ namespace GA1
                 Chromosome.NewRandomPopulation(
                     rd,
                     rd.Population));
-            listOfMediumAbsFitness.Add(startPop.Sum(x => x.AbsFitness) / startPop.Count);
+            listOfMediumAbsFitness.Add(startPop.Sum(x => x.Fitness) / startPop.Count);
 
             var preselectedPop = new RouletteWheel().DrawChromosomes(startPop);
 
@@ -50,7 +50,7 @@ namespace GA1
                 bestChromosome = nextGenPop.Max(x => x),
                 generation = 1
             };
-            listOfMediumAbsFitness.Add(nextGenPop.Sum(x => x.AbsFitness) / nextGenPop.Count);
+            listOfMediumAbsFitness.Add(nextGenPop.Sum(x => x.Fitness) / nextGenPop.Count);
 
             for (int i = 1; i < iterations; i++)
             {
@@ -60,7 +60,7 @@ namespace GA1
                     bestChromosome.bestChromosome = nextGenPop.FirstOrDefault(x => x.AbsFitness == nextGenPop.Max(y => y.AbsFitness));
                     bestChromosome.generation = i + 1;
                 }
-                listOfMediumAbsFitness.Add(nextGenPop.Sum(x => x.AbsFitness) / nextGenPop.Count);
+                listOfMediumAbsFitness.Add(nextGenPop.Sum(x => x.Fitness) / nextGenPop.Count);
             }
 
             listOfMediumAbsFitness.ForEach(Console.WriteLine);
