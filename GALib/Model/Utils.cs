@@ -23,6 +23,13 @@ namespace GALib
             list.Remove(toReturn);
             return toReturn;
         }
+
+        public static string Replace(this string str, int index, string charToReplace)
+        {
+            str = str.Remove(index, 1);
+            str = str.Insert(index, charToReplace);
+            return str;
+        }
         public static long LongRandom(long max)
         {
             if (max >> 32 <= 0) return new Random().Next((int) max);

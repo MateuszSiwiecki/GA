@@ -8,7 +8,7 @@ namespace GALib.PostSelection
 {
     public class PostSelection
     {
-        public static List<Chromosome> CreateNewPopulation(List<Chromosome> oldPop, double mixChance)
+        public static List<Chromosome> CreateNewPopulation(List<Chromosome> oldPop, double mixChance, double mutationChance)
         {
             var output = new List<Chromosome>();
             bool even = oldPop.Count % 2 == 0;
@@ -17,6 +17,7 @@ namespace GALib.PostSelection
                 : oldPop.Count - 2;
             for (var i = 0; i < cycles; i += 2) output.AddRange(MixChromosomes(oldPop.PickRandom(), oldPop.PickRandom(), mixChance));
             if (!even) output.Add(oldPop.Last());
+            for (var i = 0; i < output.Count; i++) output[i] = MutateChromosome(output[i], mutationChance);
             return output;
         }
 
@@ -46,6 +47,23 @@ namespace GALib.PostSelection
             {
                 new Chromosome(a.rd).SetGene(sbA.ToString()), new Chromosome(a.rd).SetGene(sbB.ToString())
             };
+        }
+
+        public static Chromosome MutateChromosome(Chromosome chromosome, double mutationChance)
+        {
+            var rnd = new Random();
+            if (!(mutationChance > rnd.NextDouble())) return chromosome;
+
+            var geneInBin = new string(chromosome.GeneInBinary());
+            var index = rnd.Next(geneInBin.Length - 1);
+            var byteToInsert = int.Parse(geneInBin[index].ToString());
+            byteToInsert = Math.Abs(byteToInsert - 1);
+
+            geneInBin = geneInBin.Replace(index, byteToInsert.ToString());
+
+            chromosome.SetGene(geneInBin);
+
+            return chromosome;
         }
     }
 }

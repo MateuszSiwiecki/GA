@@ -6,7 +6,8 @@ using System.Globalization;
 using System.Text;
 using Xunit.Abstractions;
 
-namespace GA1.Tests
+
+namespace GALib.Tests
 {
     public class UtilsTests
     {
@@ -28,6 +29,16 @@ namespace GA1.Tests
             _testOutputHelper.WriteLine($"{output}");
             Assert.True(output >= 0);
             Assert.True(output <= 100);
+        }
+
+        [Fact()]
+        public void ReplaceTest()
+        {
+            var someStringToChange = "123";
+            someStringToChange = someStringToChange.Replace(1, "5");
+
+            Assert.NotEqual("123", someStringToChange);
+            Assert.Equal("153", someStringToChange);
         }
     }
 }

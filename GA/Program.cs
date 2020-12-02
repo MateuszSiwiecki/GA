@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading;
+using System.Threading.Channels;
 using System.Threading.Tasks;
 using GALib;
 using GALib.Fitness;
@@ -27,12 +28,12 @@ namespace GA1
          */
         public static void Main(string[] args)
         {
-            var iterations = 100;
+            var iterations = 1000;
             var functionUnderStudy = new Func<double[], double>(x => 0.2 * Math.Pow(x[0], 3) + 0.1 * Math.Pow(x[0], 2) - 8 * x[0]);
             var fitFunction = new Func<double[], double>(x => -(0.2 * Math.Pow(x[0], 3) + 0.1 * Math.Pow(x[0], 2) - 8 * x[0]));
-            var cd = new ChromosomeDefinition(62);
+            var cd = new ChromosomeDefinition(6);
             var fc = new Function(functionUnderStudy, fitFunction, -7, 7);
-            var rd = new ResearchDefinitions(cd, fc, 100, 0.5, 0.5);
+            var rd = new ResearchDefinitions(cd, fc, 100, 0.1, 0.5);
             var listOfMediumAbsFitness = new List<double>();
 
             var startPop = Fitness.FitPop(
@@ -43,7 +44,7 @@ namespace GA1
 
             var preselectedPop = new RouletteWheel().DrawChromosomes(startPop);
 
-            var nextGenPop = Fitness.FitPop(PostSelection.CreateNewPopulation(preselectedPop, rd.MutationChance));
+            var nextGenPop = Fitness.FitPop(PostSelection.CreateNewPopulation(preselectedPop, rd.CrossChance, rd.MutationChance));
             var bestChromosome = new BestChromosome()
             {
                 bestChromosome = nextGenPop.Max(x => x),
@@ -53,22 +54,16 @@ namespace GA1
 
             for (int i = 1; i < iterations; i++)
             {
-                nextGenPop = Fitness.FitPop(PostSelection.CreateNewPopulation(nextGenPop, rd.MutationChance));
+                nextGenPop = Fitness.FitPop(PostSelection.CreateNewPopulation(nextGenPop, rd.CrossChance, rd.MutationChance));
                 if (bestChromosome.bestChromosome.AbsFitness < nextGenPop.Max(x => x.AbsFitness))
                 {
                     bestChromosome.bestChromosome = nextGenPop.FirstOrDefault(x => x.AbsFitness == nextGenPop.Max(y => y.AbsFitness));
                     bestChromosome.generation = i + 1;
                 }
                 listOfMediumAbsFitness.Add(nextGenPop.Sum(x => x.AbsFitness) / nextGenPop.Count);
-
-                //Console.WriteLine($"Generation {i + 1}");
-                //Console.WriteLine("NextGenPop:\n");
-                //Writers.WriteSortedByFitness(nextGenPop);
-                Console.WriteLine(nextGenPop.Sum(x => x.AbsFitness));
             }
 
-            //Console.WriteLine($"Medium abs fitness = {listOfMediumAbsFitness.Sum() / listOfMediumAbsFitness.Count}");
-            //Writers.WriteBestChromosome(bestChromosome);
+            listOfMediumAbsFitness.ForEach(Console.WriteLine);
         }
     }
 }

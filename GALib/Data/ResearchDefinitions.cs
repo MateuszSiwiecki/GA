@@ -25,7 +25,7 @@ namespace GALib
         public double LowerBound => function.LowerBound;
         public double UpperBound => function.UpperBound;
         public Func<double[], double> FunctionUnderStudy => function.FunctionUnderStudy;
-        public Func<double[], double> FitFunction => function.FunctionUnderStudy;
+        public Func<double[], double> FitFunction => function.FitFunction;
         public double MutationChance { get; private set; }
         public double CrossChance { get; private set; }
         public int StartPopSize { get; private set; }
