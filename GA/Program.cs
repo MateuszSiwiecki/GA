@@ -31,7 +31,8 @@ namespace GA1
             var functionUnderStudy = new Func<double[], double>(x => 0.2 * Math.Pow(x[0], 3) + 0.1 * Math.Pow(x[0], 2) - 8 * x[0]);
             var fitFunction = new Func<double[], double>(x => -(0.2 * Math.Pow(x[0], 3) + 0.1 * Math.Pow(x[0], 2) - 8 * x[0]));
             var cd = new ChromosomeDefinition(62);
-            var rd = new ResearchDefinitions(functionUnderStudy, fitFunction, -7, 7, 100, 0.5, 0.5, cd);
+            var fc = new Function(functionUnderStudy, fitFunction, -7, 7);
+            var rd = new ResearchDefinitions(cd, fc, 100, 0.5, 0.5);
             var listOfMediumAbsFitness = new List<double>();
 
             var startPop = Fitness.FitPop(

@@ -29,7 +29,7 @@ namespace GALib
         public static Chromosome NewRandomChromosome(ResearchDefinitions rd)
         => new Chromosome(rd)
         {
-            Gene = Utils.LongRandom(rd.cd.GenesCount)
+            Gene = Utils.LongRandom(rd.chromosomeDefinition.GenesCount)
         };
         private long _gene;
 
@@ -38,8 +38,8 @@ namespace GALib
             get
             {
                 if (_gene < 0) return 0; //check for any incorrect
-                return _gene >= rd.cd.PossibleLargestChromosome
-                    ? rd.cd.PossibleLargestChromosome
+                return _gene >= rd.chromosomeDefinition.PossibleLargestChromosome
+                    ? rd.chromosomeDefinition.PossibleLargestChromosome
                     : _gene;
             }
             set => _gene = value;
@@ -49,7 +49,7 @@ namespace GALib
         public double AbsFitness;
 
         public double GeneInDecimal() => rd.GetElementOfNPosition(Gene);
-        public string GeneInBinary() => rd.cd.BinaryGeneFix(Convert.ToString(Gene, 2));
+        public string GeneInBinary() => rd.chromosomeDefinition.BinaryGeneFix(Convert.ToString(Gene, 2));
 
         public Chromosome SetGene(string geneInBinary)
         {
