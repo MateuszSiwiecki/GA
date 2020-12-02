@@ -12,6 +12,8 @@ namespace GALib
                 -7,
                 7,
                 10,
+                0.5,
+                0.5,
                 GetChromosomeDefinition());
         public static ChromosomeDefinition GetChromosomeDefinition() =>
             new ChromosomeDefinition(8);

@@ -7,6 +7,8 @@ namespace GALib
     {
         public ChromosomeDefinition(int power)
         {
+            if (power < 0) power = 0;
+            if (power > 62) power = 62;
             if (power == 0)
             {
                 GenesCount = 1;

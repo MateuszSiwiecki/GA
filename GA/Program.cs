@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using GALib;
 using GALib.Fitness;
@@ -29,21 +30,17 @@ namespace GA1
             var iterations = 100;
             var functionUnderStudy = new Func<double[], double>(x => 0.2 * Math.Pow(x[0], 3) + 0.1 * Math.Pow(x[0], 2) - 8 * x[0]);
             var fitFunction = new Func<double[], double>(x => -(0.2 * Math.Pow(x[0], 3) + 0.1 * Math.Pow(x[0], 2) - 8 * x[0]));
-            var cd = new ChromosomeDefinition(64);
-            var rd = new ResearchDefinitions(functionUnderStudy, fitFunction, -7, 7, 10, cd);
+            var cd = new ChromosomeDefinition(62);
+            var rd = new ResearchDefinitions(functionUnderStudy, fitFunction, -7, 7, 100, 0.5, 0.5, cd);
             var listOfMediumAbsFitness = new List<double>();
 
             var startPop = Fitness.FitPop(
                 Chromosome.NewRandomPopulation(
                     rd,
                     rd.StartPopSize));
-            Console.WriteLine("\nStart pop:\n");
-            Writers.WriteSortedByFitness(startPop);
             listOfMediumAbsFitness.Add(startPop.Sum(x => x.AbsFitness) / startPop.Count);
 
             var preselectedPop = new RouletteWheel().DrawChromosomes(startPop);
-            Console.WriteLine("\nPreselected:\n");
-            Writers.WriteSortedByFitness(preselectedPop);
 
             var nextGenPop = Fitness.FitPop(PostSelection.CreateNewPopulation(preselectedPop));
             var bestChromosome = new BestChromosome()
@@ -63,13 +60,14 @@ namespace GA1
                 }
                 listOfMediumAbsFitness.Add(nextGenPop.Sum(x => x.AbsFitness) / nextGenPop.Count);
 
-                Console.WriteLine($"Generation {i + 1}");
-                Console.WriteLine("NextGenPop:\n");
-                Writers.WriteSortedByFitness(nextGenPop);
+                //Console.WriteLine($"Generation {i + 1}");
+                //Console.WriteLine("NextGenPop:\n");
+                //Writers.WriteSortedByFitness(nextGenPop);
+                Console.WriteLine(nextGenPop.Sum(x => x.AbsFitness));
             }
 
-            Console.WriteLine($"Medium abs fitness = {listOfMediumAbsFitness.Sum() / listOfMediumAbsFitness.Count}");
-            Writers.WriteBestChromosome(bestChromosome);
+            //Console.WriteLine($"Medium abs fitness = {listOfMediumAbsFitness.Sum() / listOfMediumAbsFitness.Count}");
+            //Writers.WriteBestChromosome(bestChromosome);
         }
     }
 }

@@ -9,6 +9,13 @@ namespace GALib.Tests
 {
     public class ChromosomeDefinitionTests
     {
+        private readonly ITestOutputHelper _testOutputHelper;
+
+        public ChromosomeDefinitionTests(ITestOutputHelper testOutputHelper)
+        {
+            _testOutputHelper = testOutputHelper;
+        }
+
         [Theory()]
         [InlineData(0)]
         [InlineData(1)]
@@ -17,19 +24,19 @@ namespace GALib.Tests
         [InlineData(4)]
         [InlineData(5)]
         [InlineData(6)]
-        public void ChromosomeDefinitionTest(int pow)
+        public void ChromosomeDefinitionTest_ValueBetween0And62_ShouldPass(int pow)
         {
             var cd = new ChromosomeDefinition(pow);
             Assert.Equal(Math.Pow(2, pow), cd.GenesCount);
         }
-    
-        private readonly ITestOutputHelper _testOutputHelper;
-
-        public ChromosomeDefinitionTests(ITestOutputHelper testOutputHelper)
+        [Theory()]
+        [InlineData(-1)]
+        [InlineData(100)]
+        public void ChromosomeDefinitionTest_ValueOtherThanBetween0And62_ShouldFail(int pow)
         {
-            _testOutputHelper = testOutputHelper;
+            var cd = new ChromosomeDefinition(pow);
+            Assert.NotEqual(Math.Pow(2, pow), cd.GenesCount);
         }
-
         [Theory]
         [InlineData("1")]
         [InlineData("100")]
@@ -40,11 +47,10 @@ namespace GALib.Tests
         {
             var cd = DefaultResearchParameters.GetChromosomeDefinition();
             var value = cd.BinaryGeneFix(valueToFix);
-            int result = -1;
             _testOutputHelper.WriteLine($"Chromosome lenght = {cd.ChromosomeLength}");
             _testOutputHelper.WriteLine(value);
             Assert.True(value.Length == cd.ChromosomeLength);
-            Assert.True(int.TryParse(value, out result));
+            Assert.True(int.TryParse(value, out _));
         }
     }
 }
