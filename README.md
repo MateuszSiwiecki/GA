@@ -7,5 +7,6 @@
 - [x] Pojedyńczy algorytm genetycznny ze stałym wzorem
 - [x] Muutacje, 
 - [x] Generyczny algorytm dla każdego wzoru
+- [x] Raport z przeprowadzonego badania
 - [ ] Kompilacja wzoru w runtimie
 - [ ] Plot i szkicowanie
